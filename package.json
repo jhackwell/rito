@@ -1,0 +1,30 @@
+{
+  "name": "rito",
+  "version": "0.0.0",
+  "description": "rito pls",
+  "homepage": "",
+  "repository": "jhackwell@gmail.com/rito",
+  "author": {
+    "name": "Lance Pines",
+    "email": "jhackwell@gmail.com",
+    "url": ""
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [],
+  "devDependencies": {
+    "gulp": "^3.6.0",
+    "gulp-eslint": "^0.8.0",
+    "gulp-istanbul": "^0.8.1",
+    "gulp-jscs": "^1.1.0",
+    "gulp-jshint": "^1.5.3",
+    "gulp-mocha": "^2.0.0",
+    "gulp-plumber": "^1.0.0",
+    "jshint-stylish": "^1.0.0"
+  },
+  "scripts": {
+    "test": "gulp"
+  },
+  "private": true
+}
