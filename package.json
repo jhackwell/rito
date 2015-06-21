@@ -26,5 +26,9 @@
   "scripts": {
     "test": "gulp"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "lodash": "^3.9.3",
+    "sprintf-js": "^1.0.2"
+  }
 }

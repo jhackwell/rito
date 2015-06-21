@@ -4,6 +4,10 @@
 
 var settings = require('./lib/config.js').settings;
 
-exports.foo = function() {
-  return 'bar';
+var client = function(region, key, base) {
+  this.region = region;
+  this.key = key;
+  this.base = base;
 };
+
+exports.client = new client(settings.api.region, settings.api.key, settings.api.base);
