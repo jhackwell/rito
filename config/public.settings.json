@@ -1,6 +1,7 @@
 {
   "api": {
-    "key": "",
-    "region": "na"
+    "region": "na",
+    "base": "api.pvp.net",
+    "transport": "https"
   }
 }

@@ -2,12 +2,18 @@
  * Created by jay on 6/20/2015.
  */
 
-var settings = require('./lib/config.js').settings;
+var mustache = require('mustache');
+var _ = require('lodash');
 
-var client = function(region, key, base) {
-  this.region = region;
-  this.key = key;
-  this.base = base;
+var Client = function (settings) {
+  this.settings = settings;
+
+  this.buildURI = function (slug) {
+    return mustache.render(
+      '{{api.transport}}://{{api.region}}.{{api.base}}/{{slug}}?api_key={{api.key}}',
+      _.merge({"slug": slug}, this.settings)
+    );
+  };
 };
 
-exports.client = new client(settings.api.region, settings.api.key, settings.api.base);
+exports.Client = Client;
