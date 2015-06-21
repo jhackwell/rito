@@ -60,6 +60,8 @@ var Client = function (settings, https) {
 
   /**
    * Build slug from previously-registered route alias and params.
+   * Any slug with stuff in it that might get HTML encoded bug shouldn't, like
+   * '{{something/else}}' will need to be represented as {{& something/else}}
    *
    * @param alias String Name of a previously-registered alias
    * @param params Object Key-value pairs of parameter names and values
