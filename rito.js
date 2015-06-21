@@ -67,29 +67,36 @@ var Client = function (settings, https) {
    * Get is the only method supported by the Riot API at this time.
    *
    * @param slug
+   * @param params Must include 'api.region', 'api.base', 'api.key'
    * @param err
    * @param res
    * @private
    */
-  this._get = function (slug, err, res) {
-    this.https.get(this._buildURI(slug), res).on('error', err);
+  this._get = function (slug, params, err, res) {
+    this.https.get(this._buildURI(slug, params), res).on('error', err);
   };
 
   /**
    * Build an endpoint URI given an endpoint short name.
    *
    * @param slug
+   * @param params Must include 'api.region', 'api.base', 'api.key'
    * @returns {*}
    * @private
    */
-  this._buildURI = function (slug) {
-    return mustache.render(
-      // The ampersand in the slug is to prevent slashes from being HTML encoded
-      // HTTPS is hardcoded as it's the only transport available at this time
-      'https://{{api.region}}.{{api.base}}/{{& slug}}?api_key={{api.key}}',
-      // We render the slug through mustache so that it can access settings as well.
-      _.merge({"slug": mustache.render(slug, this.settings)}, this.settings)
-    );
+  this._buildURI = function (slug, params) {
+    var missing = _.difference(['region', 'base', 'key'], _.keys(params));
+    if (!missing.length) {
+      return mustache.render(
+        // The ampersand in the slug is to prevent slashes from being HTML encoded
+        // HTTPS is hardcoded as it's the only transport available at this time
+        'https://{{region}}.{{base}}/{{& slug}}?api_key={{key}}',
+        // We render the slug through mustache so that it can access settings as well.
+        _.merge({"slug": mustache.render(slug, this.settings)}, params)
+      );
+    } else {
+      throw new Error('Missing required API parameters for _buildURI: ' + missing)
+    }
   };
 
   /**
@@ -99,6 +106,7 @@ var Client = function (settings, https) {
    *
    * @param alias String Name of a previously-registered alias
    * @param params Object Key-value pairs of parameter names and values
+   * @private
    */
   this._buildSlug = function (alias, params) {
     var route = _.find(this.aliases, function (existing) {
@@ -109,12 +117,12 @@ var Client = function (settings, https) {
       // We have an alias, which means we can extract from it the parameters it needs
       // and substitute in the parameters we were given
       var missing = _.difference(route.params, _.keys(params));
-      if (missing.length) {
-        throw new Error('Missing parameters for route ' + alias + ': ' + missing)
-      } else {
+      if (!missing.length) {
         // We have a route, and we have all its parameters.  Now it's just a simple
         // matter of rendering the slug and shooting it at Rito.
         return mustache.render(route.route, params);
+      } else {
+        throw new Error('Missing parameters for route ' + alias + ': ' + missing)
       }
     } else {
       throw new Error('Attempted to call unregistered alias with name ' + alias)

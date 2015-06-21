@@ -90,18 +90,46 @@ describe('_buildSlug', function () {
   });
 
   it('should error if an attempt is made to transform an unregistered route', function () {
+    //noinspection JSAccessibilityCheck
     expect(this.rito._buildSlug.bind(this.rito, 'foo', {})).to.throw(/Attempted to call unregistered alias/);
   });
 
   it('should error if required parameters are missing', function () {
     this.rito.registerAlias({name: 'foo', route: '{{bar}}', params: ['bar', 'baz']}, _.noop, _.noop);
+    //noinspection JSAccessibilityCheck
     expect(this.rito._buildSlug.bind(this.rito, 'foo', {'bar': 'bat'})).to.throw(/Missing parameters/);
   });
 
   it('should replace tags with params', function () {
     this.rito.registerAlias({name: 'foo', route: '{{bar}}/{{baz}}', params: ['bar', 'baz']}, _.noop, _.noop);
+    //noinspection JSAccessibilityCheck
     var slug = this.rito._buildSlug('foo', {'bar': 'bat', 'baz': 'qux'});
     assert.equal('bat/qux', slug)
   });
+});
 
+describe('_buildURI', function () {
+  beforeEach(function () {
+    this.rito = new rito.Client({
+      api: {key: 'key', base: 'base', region: 'region'},
+      https: {}
+    });
+  });
+
+  it('should error if required parameters are missing', function () {
+    //noinspection JSAccessibilityCheck
+    expect(this.rito._buildURI.bind(this.rito, '', {})).to.throw(/Missing required API parameters/);
+  });
+
+  it('should replace tags with params', function () {
+    //noinspection JSAccessibilityCheck
+    var URI = this.rito._buildURI('slug', {'region': 'region', 'base': 'base', 'key': 'key'});
+    assert.equal('https://region.base/slug?api_key=key', URI)
+  });
+
+  it('should not HTML encode the slug', function () {
+    //noinspection JSAccessibilityCheck
+    var URI = this.rito._buildURI('rito/pls/fix', {'region': 'region', 'base': 'base', 'key': 'key'});
+    assert.equal('https://region.base/rito/pls/fix?api_key=key', URI)
+  });
 });
