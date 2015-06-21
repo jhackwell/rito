@@ -12,18 +12,6 @@ var handleErr = function (err) {
   process.exit(1);
 };
 
-gulp.task('static', function () {
-  return gulp.src([
-      '**/*.js',
-      '!node_modules/**'
-    ])
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'))
-    .pipe(jscs())
-    .on('error', handleErr);
-});
-
 gulp.task('pre-test', function () {
   return gulp.src('lib/**/*.js')
     .pipe(istanbul({includeUntested: true}))
@@ -46,4 +34,4 @@ gulp.task('test', ['pre-test'], function (cb) {
 });
 
 
-gulp.task('default', ['static', 'test']);
+gulp.task('default', ['test']);
