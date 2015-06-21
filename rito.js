@@ -1,6 +1,7 @@
 /**
  * Created by jay on 6/20/2015.
  */
+'use strict';
 
 var mustache = require('mustache');
 var https = require('https');
