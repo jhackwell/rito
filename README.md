@@ -19,8 +19,7 @@ rito('Rainbow');
 
 ## License
 
- © [Lance Pines]()
-
+MIT
 
 [npm-image]: https://badge.fury.io/js/rito.svg
 [npm-url]: https://npmjs.org/package/rito
