@@ -90,30 +90,18 @@ describe('_buildSlug', function () {
   });
 
   it('should error if an attempt is made to transform an unregistered route', function () {
-    var errSpy = regexSpy('Attempted to call');
-    this.rito._buildSlug('foo', {}, errSpy, _.noop);
-    errSpy.should.have.been.called();
+    expect(this.rito._buildSlug.bind(this.rito, 'foo', {})).to.throw(/Attempted to call unregistered alias/);
   });
 
   it('should error if required parameters are missing', function () {
-    var errSpy = regexSpy('Missing parameters');
-
     this.rito.registerAlias({name: 'foo', route: '{{bar}}', params: ['bar', 'baz']}, _.noop, _.noop);
-    this.rito._buildSlug('foo', {'bar': 'bat'}, errSpy, _.noop);
-
-    errSpy.should.have.been.called();
+    expect(this.rito._buildSlug.bind(this.rito, 'foo', {'bar': 'bat'})).to.throw(/Missing parameters/);
   });
 
   it('should replace tags with params', function () {
-    var errSpy = chai.spy();
-
     this.rito.registerAlias({name: 'foo', route: '{{bar}}/{{baz}}', params: ['bar', 'baz']}, _.noop, _.noop);
-    this.rito._buildSlug('foo', {'bar': 'bat', 'baz': 'qux'}, errSpy, function (res) {
-      assert.ok(res.slug);
-      assert.equal(res.slug, 'bat/qux');
-    });
-
-    errSpy.should.not.have.been.called();
+    var slug = this.rito._buildSlug('foo', {'bar': 'bat', 'baz': 'qux'});
+    assert.equal('bat/qux', slug)
   });
 
 });

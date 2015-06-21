@@ -16,6 +16,22 @@ var _ = require('lodash');
 var Client = function (settings, https) {
   this.settings = settings;
   this.aliases = settings.aliases ? settings.aliases : [];
+  this.https = https;
+
+  /**
+   *
+   * @param alias
+   * @param method
+   * @param params
+   * @param err
+   * @param res
+   */
+  this.call = function (alias, method, params, err, res) {
+    method = '_' + method;
+    if (this.hasOwnProperty(method) && _.isFunction(this[method])) {
+    } else {
+    }
+  };
 
   /**
    * Call a previously-registered alias for a fully-qualified, versioned route endpoint.
@@ -47,57 +63,8 @@ var Client = function (settings, https) {
   };
 
   /**
-   *
-   * @param alias
-   * @param method
-   * @param params
-   * @param err
-   * @param res
-   */
-  this.call = function (alias, method, params, err, res) {
-
-  };
-
-  /**
-   * Build slug from previously-registered route alias and params.
-   * Any slug with stuff in it that might get HTML encoded bug shouldn't, like
-   * '{{something/else}}' will need to be represented as {{& something/else}}
-   *
-   * @param alias String Name of a previously-registered alias
-   * @param params Object Key-value pairs of parameter names and values
-   * @param err Error callback
-   * @param res Result callback
-   */
-  this._buildSlug = function (alias, params, err, res) {
-    var route = _.find(this.aliases, function (existing) {
-      return existing.name == alias
-    });
-
-    if (route) {
-      // We have an alias, which means we can extract from it the parameters it needs
-      // and substitute in the parameters we were given
-      var missing = _.difference(route.params, _.keys(params));
-      if (missing.length) {
-        err({
-            msg: 'Missing parameters for aliased route ' + alias,
-            details: {alias: alias, missing: missing}
-          }
-        )
-      } else {
-        // We have a route, and we have all its parameters.  Now it's just a simple
-        // matter of rendering the slug and shooting it at Rito.
-        res({slug: mustache.render(route.route, params)});
-      }
-    } else {
-      console.log('here is the error');
-      err({msg: 'Attempted to call unregistered alias with name ' + alias})
-    }
-  };
-
-  /**
    * Simple wrapper around node HTTPS.
-   * Get is the only method supported by the Riot API at this time,
-   * and HTTPS is the only transport.
+   * Get is the only method supported by the Riot API at this time.
    *
    * @param slug
    * @param err
@@ -105,7 +72,7 @@ var Client = function (settings, https) {
    * @private
    */
   this._get = function (slug, err, res) {
-    https.get(this._buildURI(slug), res).on('error', err);
+    this.https.get(this._buildURI(slug), res).on('error', err);
   };
 
   /**
@@ -118,10 +85,40 @@ var Client = function (settings, https) {
   this._buildURI = function (slug) {
     return mustache.render(
       // The ampersand in the slug is to prevent slashes from being HTML encoded
+      // HTTPS is hardcoded as it's the only transport available at this time
       'https://{{api.region}}.{{api.base}}/{{& slug}}?api_key={{api.key}}',
       // We render the slug through mustache so that it can access settings as well.
       _.merge({"slug": mustache.render(slug, this.settings)}, this.settings)
     );
+  };
+
+  /**
+   * Build slug from previously-registered route alias and params.
+   * Any slug with stuff in it that might get HTML encoded bug shouldn't, like
+   * '{{something/else}}' will need to be represented as {{& something/else}}
+   *
+   * @param alias String Name of a previously-registered alias
+   * @param params Object Key-value pairs of parameter names and values
+   */
+  this._buildSlug = function (alias, params) {
+    var route = _.find(this.aliases, function (existing) {
+      return existing.name == alias
+    });
+
+    if (route) {
+      // We have an alias, which means we can extract from it the parameters it needs
+      // and substitute in the parameters we were given
+      var missing = _.difference(route.params, _.keys(params));
+      if (missing.length) {
+        throw new Error('Missing parameters for route ' + alias + ': ' + missing)
+      } else {
+        // We have a route, and we have all its parameters.  Now it's just a simple
+        // matter of rendering the slug and shooting it at Rito.
+        return mustache.render(route.route, params);
+      }
+    } else {
+      throw new Error('Attempted to call unregistered alias with name ' + alias)
+    }
   };
 };
 
