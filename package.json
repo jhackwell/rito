@@ -29,6 +29,6 @@
   "private": true,
   "dependencies": {
     "lodash": "^3.9.3",
-    "mustache": "^2.1.2"
+    "mustache": "^2.1.2",
   }
 }

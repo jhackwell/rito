@@ -5,11 +5,19 @@
 var mustache = require('mustache');
 var https = require('https');
 var _ = require('lodash');
+var routes = require('./api/src/src.json');
 
 var Client = function (settings) {
   this.settings = settings;
 
-  this.buildURI = function (slug) {
+  /*
+   * Main public-facing method.
+   */
+  this.call = function (route, err, res) {
+
+  };
+
+  this._buildURI = function (slug) {
     return mustache.render(
       // The ampersand in the slug is to prevent slashes from being HTML encoded
       'https://{{api.region}}.{{api.base}}/{{& slug}}?api_key={{api.key}}',
@@ -19,13 +27,12 @@ var Client = function (settings) {
   };
 
   /*
-   * Get is the only method supporting by the RIOT API at this time,
+   * Get is the only method supported by the Riot API at this time,
    * and HTTPS is the only transport.
    */
-  // todo don't take slug, take route name or something like that
-  this.get = function (slug, err, res) {
-    https.get(this.buildURI(slug), res).on('error', err);
-  }
+  this._get = function (slug, err, res) {
+    https.get(this._buildURI(slug), res).on('error', err);
+  };
 };
 
 exports.Client = Client;
