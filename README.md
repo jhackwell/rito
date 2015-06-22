@@ -95,7 +95,7 @@ getChampionById('na', 7);
 
 MIT
 
-[npm-version]: 0.1.0
+[npm-version]: 0.1.2
 [npm-image]: https://badge.fury.io/js/rito.svg
 [npm-url]: https://npmjs.org/package/rito
 [travis-image]: https://travis-ci.org//rito.svg?branch=master

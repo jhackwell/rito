@@ -1,6 +1,6 @@
 {
   "name": "rito",
-  "version": "0.0.0",
+  "version": "0.1.2",
   "description": "Flexible, durable, asynchronous Riot Games API client in Node.js",
   "homepage": "",
   "repository": "jhackwell@gmail.com/rito",
