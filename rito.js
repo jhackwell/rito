@@ -19,17 +19,30 @@ var Client = function (settings, https) {
   this.https = https;
 
   /**
+   * Build and make a request using the given method to the HTTPS module attached
+   * to this client.
    *
-   * @param alias
-   * @param method
-   * @param params
-   * @param err
-   * @param res
+   * Get is the only request method supported at this time.
+   *
+   * @param alias Route name
+   * @param method E.g. 'get'.  Must be defined on this object.
+   * @param region E.g. 'na'
+   * @param params Route-specific parameters, e.g. 'id'
+   * @param err Error callback
+   * @param res Success callback
    */
-  this.call = function (alias, method, params, err, res) {
+  this.call = function (alias, method, region, params, err, res) {
     method = '_' + method;
+    if (!this.https) {
+      throw new Error('Rito client has no HTTPS module attached to it')
+    }
     if (this.hasOwnProperty(method) && _.isFunction(this[method])) {
+      // Key and base never change per client instance, and are only decoupled
+      // for testing.  We just merge region in here and pass it along.
+      settings = _.merge({"region": region}, this.settings);
+      this[method](this._buildSlug(alias, params), settings, err, res);
     } else {
+      throw new Error('Request method ' + method + 'is undefined or is not callable');
     }
   };
 
@@ -67,30 +80,31 @@ var Client = function (settings, https) {
    * Get is the only method supported by the Riot API at this time.
    *
    * @param slug
-   * @param params Must include 'api.region', 'api.base', 'api.key'
+   * @param params
    * @param err
    * @param res
    * @private
    */
   this._get = function (slug, params, err, res) {
-    this.https.get(this._buildURI(slug, params), res).on('error', err);
+    https.get(this._buildURI(slug, params), res).on('error', err)
   };
 
   /**
    * Build an endpoint URI given an endpoint short name.
    *
    * @param slug
-   * @param params Must include 'api.region', 'api.base', 'api.key'
+   * @param params Must include 'region', 'base', 'key'
    * @returns {*}
    * @private
    */
   this._buildURI = function (slug, params) {
     var missing = _.difference(['region', 'base', 'key'], _.keys(params));
     if (!missing.length) {
+      slug = slug[0] === '/' ? slug : '/' + slug;
       return mustache.render(
         // The ampersand in the slug is to prevent slashes from being HTML encoded
         // HTTPS is hardcoded as it's the only transport available at this time
-        'https://{{region}}.{{base}}/{{& slug}}?api_key={{key}}',
+        'https://{{region}}.{{base}}{{& slug}}?api_key={{key}}',
         // We render the slug through mustache so that it can access settings as well.
         _.merge({"slug": mustache.render(slug, this.settings)}, params)
       );

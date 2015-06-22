@@ -124,12 +124,22 @@ describe('_buildURI', function () {
   it('should replace tags with params', function () {
     //noinspection JSAccessibilityCheck
     var URI = this.rito._buildURI('slug', {'region': 'region', 'base': 'base', 'key': 'key'});
-    assert.equal('https://region.base/slug?api_key=key', URI)
+    assert.equal('https://region.base/slug?api_key=key', URI);
+  });
+
+  it('should pad the start of the slug with a slash if it does not exist', function () {
+    //noinspection JSAccessibilityCheck
+    var URI = this.rito._buildURI('/rito/pls/fix', {'region': 'region', 'base': 'base', 'key': 'key'});
+    assert.equal('https://region.base/rito/pls/fix?api_key=key', URI);
+
+    //noinspection JSAccessibilityCheck
+    URI = this.rito._buildURI('rito/pls/fix', {'region': 'region', 'base': 'base', 'key': 'key'});
+    assert.equal('https://region.base/rito/pls/fix?api_key=key', URI);
   });
 
   it('should not HTML encode the slug', function () {
     //noinspection JSAccessibilityCheck
     var URI = this.rito._buildURI('rito/pls/fix', {'region': 'region', 'base': 'base', 'key': 'key'});
-    assert.equal('https://region.base/rito/pls/fix?api_key=key', URI)
+    assert.equal('https://region.base/rito/pls/fix?api_key=key', URI);
   });
 });
