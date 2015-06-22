@@ -211,3 +211,25 @@ describe('use', function () {
     resSpy.should.not.have.been.called();
   });
 });
+
+describe('_mergeRegions', function () {
+  beforeEach(function () {
+    this.rito = new rito.Client({}, {});
+  });
+
+  // One of those instances where the test is nearly identical to the method
+  // ... but... regression testing, I guess?
+  it('should merge the region list into each route', function () {
+    //noinspection JSAccessibilityCheck
+    var merged = this.rito._mergeRegions(this.rito._api);
+    _.forEach(merged, function(endpoint) {
+      _.forEach(endpoint, function(version) {
+        var regions = version.regions;
+        _.forEach(version.routes, function(route) {
+          assert.equal(regions, route.regions)
+        })
+      })
+    })
+  });
+});
+
