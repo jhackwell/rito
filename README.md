@@ -28,7 +28,7 @@ Register an endpoint at a specific version -- this ensures you'll always know wh
 endpoint your application depends on! You only need to register whatever endpoints you need -- this is an ideal thing to have in your
 configuration somewhere.
 
-All endpoints and their associated routes are defined in /api/generated/api.json
+All endpoints and their associated routes are defined in [/api/generated/api.json](/api/generated/api.json)
 ```js
 client.use('champion', '1.2', err, res);
 ```
