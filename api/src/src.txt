@@ -1,103 +1,101 @@
+champion-v1.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+	GET /api/lol/{region}/v1.2/champion
+		Retrieve all champions. (REST)
+	GET /api/lol/{region}/v1.2/champion/{id}
+		Retrieve champion by ID. (REST)
 
+current-game-v1.0 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, PBE, RU, TR]
+	GET /observer-mode/rest/consumer/getSpectatorGameInfo/{platformId}/{summonerId}
+		Get current game information for the given summoner ID. (REST)
 
-    champion-v1.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
-            GET /api/lol/{region}/v1.2/champion
-                Retrieve all champions. (REST)
-            GET /api/lol/{region}/v1.2/champion/{id}
-                Retrieve champion by ID. (REST)
+featured-games-v1.0 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, PBE, RU, TR]
+	GET /observer-mode/rest/featured
+		Get list of featured games. (REST)
 
-    current-game-v1.0 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, PBE, RU, TR]
-            GET /observer-mode/rest/consumer/getSpectatorGameInfo/{platformId}/{summonerId}
-                Get current game information for the given summoner ID. (REST)
+game-v1.3 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+	GET /api/lol/{region}/v1.3/game/by-summoner/{summonerId}/recent
+		Get recent games by summoner ID. (REST)
 
-    featured-games-v1.0 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, PBE, RU, TR]
-            GET /observer-mode/rest/featured
-                Get list of featured games. (REST)
+league-v2.5 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+	GET /api/lol/{region}/v2.5/league/by-summoner/{summonerIds}
+		Get leagues mapped by summoner ID for a given list of summoner IDs. (REST)
+	GET /api/lol/{region}/v2.5/league/by-summoner/{summonerIds}/entry
+		Get league entries mapped by summoner ID for a given list of summoner IDs. (REST)
+	GET /api/lol/{region}/v2.5/league/by-team/{teamIds}
+		Get leagues mapped by team ID for a given list of team IDs. (REST)
+	GET /api/lol/{region}/v2.5/league/by-team/{teamIds}/entry
+		Get league entries mapped by team ID for a given list of team IDs. (REST)
+	GET /api/lol/{region}/v2.5/league/challenger
+		Get challenger tier leagues. (REST)
+	GET /api/lol/{region}/v2.5/league/master
+		Get master tier leagues. (REST)
 
-    game-v1.3 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
-            GET /api/lol/{region}/v1.3/game/by-summoner/{summonerId}/recent
-                Get recent games by summoner ID. (REST)
+lol-static-data-v1.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, PBE, RU, TR]
+	GET /api/lol/static-data/{region}/v1.2/champion
+		Retrieves champion list. (REST)
+	GET /api/lol/static-data/{region}/v1.2/champion/{id}
+		Retrieves a champion by its id. (REST)
+	GET /api/lol/static-data/{region}/v1.2/item
+		Retrieves item list. (REST)
+	GET /api/lol/static-data/{region}/v1.2/item/{id}
+		Retrieves item by its unique id. (REST)
+	GET /api/lol/static-data/{region}/v1.2/language-strings
+		Retrieve language strings data. (REST)
+	GET /api/lol/static-data/{region}/v1.2/languages
+		Retrieve supported languages data. (REST)
+	GET /api/lol/static-data/{region}/v1.2/map
+		Retrieve map data. (REST)
+	GET /api/lol/static-data/{region}/v1.2/mastery
+		Retrieves mastery list. (REST)
+	GET /api/lol/static-data/{region}/v1.2/mastery/{id}
+		Retrieves mastery item by its unique id. (REST)
+	GET /api/lol/static-data/{region}/v1.2/realm
+		Retrieve realm data. (REST)
+	GET /api/lol/static-data/{region}/v1.2/rune
+		Retrieves rune list. (REST)
+	GET /api/lol/static-data/{region}/v1.2/rune/{id}
+		Retrieves rune by its unique id. (REST)
+	GET /api/lol/static-data/{region}/v1.2/summoner-spell
+		Retrieves summoner spell list. (REST)
+	GET /api/lol/static-data/{region}/v1.2/summoner-spell/{id}
+		Retrieves summoner spell by its unique id. (REST)
+	GET /api/lol/static-data/{region}/v1.2/versions
+		Retrieve version data. (REST)
 
-    league-v2.5 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
-            GET /api/lol/{region}/v2.5/league/by-summoner/{summonerIds}
-                Get leagues mapped by summoner ID for a given list of summoner IDs. (REST)
-            GET /api/lol/{region}/v2.5/league/by-summoner/{summonerIds}/entry
-                Get league entries mapped by summoner ID for a given list of summoner IDs. (REST)
-            GET /api/lol/{region}/v2.5/league/by-team/{teamIds}
-                Get leagues mapped by team ID for a given list of team IDs. (REST)
-            GET /api/lol/{region}/v2.5/league/by-team/{teamIds}/entry
-                Get league entries mapped by team ID for a given list of team IDs. (REST)
-            GET /api/lol/{region}/v2.5/league/challenger
-                Get challenger tier leagues. (REST)
-            GET /api/lol/{region}/v2.5/league/master
-                Get master tier leagues. (REST)
+lol-status-v1.0 [BR, EUNE, EUW, LAN, LAS, NA, OCE, PBE, RU, TR]
+	GET /shards
+		Get shard list. (REST)
+	GET /shards/{region}
+		Get shard status. Returns the data available on the status.leagueoflegends.com website for the given region. (REST)
 
-    lol-static-data-v1.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, PBE, RU, TR]
-            GET /api/lol/static-data/{region}/v1.2/champion
-                Retrieves champion list. (REST)
-            GET /api/lol/static-data/{region}/v1.2/champion/{id}
-                Retrieves a champion by its id. (REST)
-            GET /api/lol/static-data/{region}/v1.2/item
-                Retrieves item list. (REST)
-            GET /api/lol/static-data/{region}/v1.2/item/{id}
-                Retrieves item by its unique id. (REST)
-            GET /api/lol/static-data/{region}/v1.2/language-strings
-                Retrieve language strings data. (REST)
-            GET /api/lol/static-data/{region}/v1.2/languages
-                Retrieve supported languages data. (REST)
-            GET /api/lol/static-data/{region}/v1.2/map
-                Retrieve map data. (REST)
-            GET /api/lol/static-data/{region}/v1.2/mastery
-                Retrieves mastery list. (REST)
-            GET /api/lol/static-data/{region}/v1.2/mastery/{id}
-                Retrieves mastery item by its unique id. (REST)
-            GET /api/lol/static-data/{region}/v1.2/realm
-                Retrieve realm data. (REST)
-            GET /api/lol/static-data/{region}/v1.2/rune
-                Retrieves rune list. (REST)
-            GET /api/lol/static-data/{region}/v1.2/rune/{id}
-                Retrieves rune by its unique id. (REST)
-            GET /api/lol/static-data/{region}/v1.2/summoner-spell
-                Retrieves summoner spell list. (REST)
-            GET /api/lol/static-data/{region}/v1.2/summoner-spell/{id}
-                Retrieves summoner spell by its unique id. (REST)
-            GET /api/lol/static-data/{region}/v1.2/versions
-                Retrieve version data. (REST)
+match-v2.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+	GET /api/lol/{region}/v2.2/match/{matchId}
+		Retrieve match by match ID. (REST)
 
-    lol-status-v1.0 [BR, EUNE, EUW, LAN, LAS, NA, OCE, PBE, RU, TR]
-            GET /shards
-                Get shard list. (REST)
-            GET /shards/{region}
-                Get shard status. Returns the data available on the status.leagueoflegends.com website for the given region. (REST)
+matchhistory-v2.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+	GET /api/lol/{region}/v2.2/matchhistory/{summonerId}
+		Retrieve match history by summoner ID. (REST)
 
-    match-v2.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
-            GET /api/lol/{region}/v2.2/match/{matchId}
-                Retrieve match by match ID. (REST)
+stats-v1.3 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+	GET /api/lol/{region}/v1.3/stats/by-summoner/{summonerId}/ranked
+		Get ranked stats by summoner ID. (REST)
+	GET /api/lol/{region}/v1.3/stats/by-summoner/{summonerId}/summary
+		Get player stats summaries by summoner ID. (REST)
 
-    matchhistory-v2.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
-            GET /api/lol/{region}/v2.2/matchhistory/{summonerId}
-                Retrieve match history by summoner ID. (REST)
+summoner-v1.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+	GET /api/lol/{region}/v1.4/summoner/by-name/{summonerNames}
+		Get summoner objects mapped by standardized summoner name for a given list of summoner names. (REST)
+	GET /api/lol/{region}/v1.4/summoner/{summonerIds}
+		Get summoner objects mapped by summoner ID for a given list of summoner IDs. (REST)
+	GET /api/lol/{region}/v1.4/summoner/{summonerIds}/masteries
+		Get mastery pages mapped by summoner ID for a given list of summoner IDs (REST)
+	GET /api/lol/{region}/v1.4/summoner/{summonerIds}/name
+		Get summoner names mapped by summoner ID for a given list of summoner IDs. (REST)
+	GET /api/lol/{region}/v1.4/summoner/{summonerIds}/runes
+		Get rune pages mapped by summoner ID for a given list of summoner IDs. (REST)
 
-    stats-v1.3 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
-            GET /api/lol/{region}/v1.3/stats/by-summoner/{summonerId}/ranked
-                Get ranked stats by summoner ID. (REST)
-            GET /api/lol/{region}/v1.3/stats/by-summoner/{summonerId}/summary
-                Get player stats summaries by summoner ID. (REST)
-
-    summoner-v1.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
-            GET /api/lol/{region}/v1.4/summoner/by-name/{summonerNames}
-                Get summoner objects mapped by standardized summoner name for a given list of summoner names. (REST)
-            GET /api/lol/{region}/v1.4/summoner/{summonerIds}
-                Get summoner objects mapped by summoner ID for a given list of summoner IDs. (REST)
-            GET /api/lol/{region}/v1.4/summoner/{summonerIds}/masteries
-                Get mastery pages mapped by summoner ID for a given list of summoner IDs (REST)
-            GET /api/lol/{region}/v1.4/summoner/{summonerIds}/name
-                Get summoner names mapped by summoner ID for a given list of summoner IDs. (REST)
-            GET /api/lol/{region}/v1.4/summoner/{summonerIds}/runes
-                Get rune pages mapped by summoner ID for a given list of summoner IDs. (REST)
-
-    team-v2.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
-            GET /api/lol/{region}/v2.4/team/by-summoner/{summonerIds}
-                Get teams mapped by summoner ID for a given list of summoner IDs. (REST)
-            GET /api/lol/{region}/v2.4/team/{teamIds}
-                Get teams mapped by team ID for a given list of team IDs. (REST)
+team-v2.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+	GET /api/lol/{region}/v2.4/team/by-summoner/{summonerIds}
+		Get teams mapped by summoner ID for a given list of summoner IDs. (REST)
+	GET /api/lol/{region}/v2.4/team/{teamIds}
+		Get teams mapped by team ID for a given list of team IDs. (REST)

@@ -1,0 +1,455 @@
+{
+  "champion": {
+    "1.2": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.2/champion",
+          "name": "api.lol.champion",
+          "description": "Retrieve all champions. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.2/champion/{{id}}",
+          "name": "api.lol.champion",
+          "description": "Retrieve champion by ID. (REST)"
+        }
+      ]
+    }
+  },
+  "current-game": {
+    "1.0": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "PBE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/observer-mode/rest/consumer/getSpectatorGameInfo/{{platformId}}/{{summonerId}}",
+          "name": "observer-mode.rest.consumer.getSpectatorGameInfo",
+          "description": "Get current game information for the given summoner ID. (REST)"
+        }
+      ]
+    }
+  },
+  "featured-games": {
+    "1.0": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "PBE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/observer-mode/rest/featured",
+          "name": "observer-mode.rest.featured",
+          "description": "Get list of featured games. (REST)"
+        }
+      ]
+    }
+  },
+  "game": {
+    "1.3": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.3/game/by-summoner/{{summonerId}}/recent",
+          "name": "api.lol.game.by-summoner.recent",
+          "description": "Get recent games by summoner ID. (REST)"
+        }
+      ]
+    }
+  },
+  "league": {
+    "2.5": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.5/league/by-summoner/{{summonerIds}}",
+          "name": "api.lol.league.by-summoner",
+          "description": "Get leagues mapped by summoner ID for a given list of summoner IDs. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.5/league/by-summoner/{{summonerIds}}/entry",
+          "name": "api.lol.league.by-summoner.entry",
+          "description": "Get league entries mapped by summoner ID for a given list of summoner IDs. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.5/league/by-team/{{teamIds}}",
+          "name": "api.lol.league.by-team",
+          "description": "Get leagues mapped by team ID for a given list of team IDs. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.5/league/by-team/{{teamIds}}/entry",
+          "name": "api.lol.league.by-team.entry",
+          "description": "Get league entries mapped by team ID for a given list of team IDs. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.5/league/challenger",
+          "name": "api.lol.league.challenger",
+          "description": "Get challenger tier leagues. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.5/league/master",
+          "name": "api.lol.league.master",
+          "description": "Get master tier leagues. (REST)"
+        }
+      ]
+    }
+  },
+  "lol-static-data": {
+    "1.2": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "PBE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/champion",
+          "name": "api.lol.static-data.champion",
+          "description": "Retrieves champion list. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/champion/{{id}}",
+          "name": "api.lol.static-data.champion",
+          "description": "Retrieves a champion by its id. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/item",
+          "name": "api.lol.static-data.item",
+          "description": "Retrieves item list. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/item/{{id}}",
+          "name": "api.lol.static-data.item",
+          "description": "Retrieves item by its unique id. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/language-strings",
+          "name": "api.lol.static-data.language-strings",
+          "description": "Retrieve language strings data. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/languages",
+          "name": "api.lol.static-data.languages",
+          "description": "Retrieve supported languages data. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/map",
+          "name": "api.lol.static-data.map",
+          "description": "Retrieve map data. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/mastery",
+          "name": "api.lol.static-data.mastery",
+          "description": "Retrieves mastery list. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/mastery/{{id}}",
+          "name": "api.lol.static-data.mastery",
+          "description": "Retrieves mastery item by its unique id. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/realm",
+          "name": "api.lol.static-data.realm",
+          "description": "Retrieve realm data. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/rune",
+          "name": "api.lol.static-data.rune",
+          "description": "Retrieves rune list. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/rune/{{id}}",
+          "name": "api.lol.static-data.rune",
+          "description": "Retrieves rune by its unique id. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/summoner-spell",
+          "name": "api.lol.static-data.summoner-spell",
+          "description": "Retrieves summoner spell list. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/summoner-spell/{{id}}",
+          "name": "api.lol.static-data.summoner-spell",
+          "description": "Retrieves summoner spell by its unique id. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/static-data/{{region}}/v1.2/versions",
+          "name": "api.lol.static-data.versions",
+          "description": "Retrieve version data. (REST)"
+        }
+      ]
+    }
+  },
+  "lol-status": {
+    "1.0": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "PBE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/shards",
+          "name": "shards",
+          "description": "Get shard list. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/shards/{{region}}",
+          "name": "shards",
+          "description": "Get shard status. Returns the data available on the status.leagueoflegends.com website for the given region. (REST)"
+        }
+      ]
+    }
+  },
+  "match": {
+    "2.2": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.2/match/{{matchId}}",
+          "name": "api.lol.match",
+          "description": "Retrieve match by match ID. (REST)"
+        }
+      ]
+    }
+  },
+  "matchhistory": {
+    "2.2": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.2/matchhistory/{{summonerId}}",
+          "name": "api.lol.matchhistory",
+          "description": "Retrieve match history by summoner ID. (REST)"
+        }
+      ]
+    }
+  },
+  "stats": {
+    "1.3": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.3/stats/by-summoner/{{summonerId}}/ranked",
+          "name": "api.lol.stats.by-summoner.ranked",
+          "description": "Get ranked stats by summoner ID. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.3/stats/by-summoner/{{summonerId}}/summary",
+          "name": "api.lol.stats.by-summoner.summary",
+          "description": "Get player stats summaries by summoner ID. (REST)"
+        }
+      ]
+    }
+  },
+  "summoner": {
+    "1.4": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.4/summoner/by-name/{{summonerNames}}",
+          "name": "api.lol.summoner.by-name",
+          "description": "Get summoner objects mapped by standardized summoner name for a given list of summoner names. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.4/summoner/{{summonerIds}}",
+          "name": "api.lol.summoner",
+          "description": "Get summoner objects mapped by summoner ID for a given list of summoner IDs. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.4/summoner/{{summonerIds}}/masteries",
+          "name": "api.lol.summoner.masteries",
+          "description": "Get mastery pages mapped by summoner ID for a given list of summoner IDs (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.4/summoner/{{summonerIds}}/name",
+          "name": "api.lol.summoner.name",
+          "description": "Get summoner names mapped by summoner ID for a given list of summoner IDs. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v1.4/summoner/{{summonerIds}}/runes",
+          "name": "api.lol.summoner.runes",
+          "description": "Get rune pages mapped by summoner ID for a given list of summoner IDs. (REST)"
+        }
+      ]
+    }
+  },
+  "team": {
+    "2.4": {
+      "regions": [
+        "BR",
+        "EUNE",
+        "EUW",
+        "KR",
+        "LAN",
+        "LAS",
+        "NA",
+        "OCE",
+        "RU",
+        "TR"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.4/team/by-summoner/{{summonerIds}}",
+          "name": "api.lol.team.by-summoner",
+          "description": "Get teams mapped by summoner ID for a given list of summoner IDs. (REST)"
+        },
+        {
+          "method": "GET",
+          "route": "/api/lol/{{region}}/v2.4/team/{{teamIds}}",
+          "name": "api.lol.team",
+          "description": "Get teams mapped by team ID for a given list of team IDs. (REST)"
+        }
+      ]
+    }
+  }
+}
