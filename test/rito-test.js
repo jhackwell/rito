@@ -31,10 +31,7 @@ var regexSpy = function (str) {
 
 describe('registerAlias', function () {
   beforeEach(function () {
-    this.rito = new rito.Client({
-      api: {key: 'key', base: 'base', region: 'region'},
-      https: {}
-    });
+    this.rito = new rito.Client({}, {});
   });
 
   it('should add a new route alias', function () {
@@ -83,10 +80,7 @@ describe('registerAlias', function () {
 
 describe('_buildSlug', function () {
   beforeEach(function () {
-    this.rito = new rito.Client({
-      api: {key: 'key', base: 'base', region: 'region'},
-      https: {}
-    });
+    this.rito = new rito.Client({}, {});
   });
 
   it('should error if an attempt is made to transform an unregistered route', function () {
@@ -110,10 +104,8 @@ describe('_buildSlug', function () {
 
 describe('_buildURI', function () {
   beforeEach(function () {
-    this.rito = new rito.Client({
-      api: {key: 'key', base: 'base', region: 'region'},
-      https: {}
-    });
+    this.rito = new rito.Client({}, {});
+    this.settings = {'region': 'region', 'base': 'base', 'key': 'key'};
   });
 
   it('should error if required parameters are missing', function () {
@@ -123,23 +115,56 @@ describe('_buildURI', function () {
 
   it('should replace tags with params', function () {
     //noinspection JSAccessibilityCheck
-    var URI = this.rito._buildURI('slug', {'region': 'region', 'base': 'base', 'key': 'key'});
+    var URI = this.rito._buildURI('slug', this.settings);
     assert.equal('https://region.base/slug?api_key=key', URI);
   });
 
   it('should pad the start of the slug with a slash if it does not exist', function () {
     //noinspection JSAccessibilityCheck
-    var URI = this.rito._buildURI('/rito/pls/fix', {'region': 'region', 'base': 'base', 'key': 'key'});
+    var URI = this.rito._buildURI('/rito/pls/fix', this.settings);
     assert.equal('https://region.base/rito/pls/fix?api_key=key', URI);
 
     //noinspection JSAccessibilityCheck
-    URI = this.rito._buildURI('rito/pls/fix', {'region': 'region', 'base': 'base', 'key': 'key'});
+    URI = this.rito._buildURI('rito/pls/fix', this.settings);
     assert.equal('https://region.base/rito/pls/fix?api_key=key', URI);
   });
 
   it('should not HTML encode the slug', function () {
     //noinspection JSAccessibilityCheck
-    var URI = this.rito._buildURI('rito/pls/fix', {'region': 'region', 'base': 'base', 'key': 'key'});
+    var URI = this.rito._buildURI('rito/pls/fix', this.settings);
     assert.equal('https://region.base/rito/pls/fix?api_key=key', URI);
+  });
+});
+
+describe('call', function () {
+  beforeEach(function () {
+    this.rito = new rito.Client(
+      {base: 'base', key: 'key'},
+      {
+        get: chai.spy(function () {
+          // We don't check to see if on() is called, so we don't need to spy on it.
+          return {on: _.noop}
+        })
+      }
+    );
+  });
+
+  it('should error if no https is attached', function () {
+    delete(this.rito.https);
+    expect(this.rito.call.bind(this.rito)).to.throw(/no HTTPS module/);
+  });
+
+  it('should error if request method does not exist', function () {
+    // Just in case this is defined, for some reason
+    delete(this.rito.post);
+    expect(this.rito.call.bind(this.rito, 'foo', 'post')).to.throw(/undefined or is not callable/);
+    this.rito.https.get.should.not.have.been.called();
+  });
+
+  it('should call the request method if valid', function () {
+    // Just in case this is defined, for some reason
+    this.rito.registerAlias({name: 'foo', route: '{{bar}}/{{baz}}', params: ['bar', 'baz']}, _.noop, _.noop);
+    this.rito.call('foo', 'get', 'na', {bar: 'bat', baz: 'qux'});
+    this.rito.https.get.should.have.been.called.once();
   });
 });

@@ -40,7 +40,8 @@ var Client = function (settings, https) {
       // Key and base never change per client instance, and are only decoupled
       // for testing.  We just merge region in here and pass it along.
       settings = _.merge({"region": region}, this.settings);
-      this[method](this._buildSlug(alias, params), settings, err, res);
+      // Now it's just a simple matter of rendering the slug and shooting it at Rito.
+      this[method](this._buildURI((this._buildSlug(alias, params)), settings), err, res);
     } else {
       throw new Error('Request method ' + method + 'is undefined or is not callable');
     }
@@ -79,26 +80,25 @@ var Client = function (settings, https) {
    * Simple wrapper around node HTTPS.
    * Get is the only method supported by the Riot API at this time.
    *
-   * @param slug
-   * @param params
+   * @param route
    * @param err
    * @param res
    * @private
    */
-  this._get = function (slug, params, err, res) {
-    https.get(this._buildURI(slug, params), res).on('error', err)
+  this._get = function (route, err, res) {
+    https.get(route, res).on('error', err)
   };
 
   /**
    * Build an endpoint URI given an endpoint short name.
    *
    * @param slug
-   * @param params Must include 'region', 'base', 'key'
+   * @param settings Must include 'region', 'base', 'key'
    * @returns {*}
    * @private
    */
-  this._buildURI = function (slug, params) {
-    var missing = _.difference(['region', 'base', 'key'], _.keys(params));
+  this._buildURI = function (slug, settings) {
+    var missing = _.difference(['region', 'base', 'key'], _.keys(settings));
     if (!missing.length) {
       slug = slug[0] === '/' ? slug : '/' + slug;
       return mustache.render(
@@ -106,7 +106,7 @@ var Client = function (settings, https) {
         // HTTPS is hardcoded as it's the only transport available at this time
         'https://{{region}}.{{base}}{{& slug}}?api_key={{key}}',
         // We render the slug through mustache so that it can access settings as well.
-        _.merge({"slug": mustache.render(slug, this.settings)}, params)
+        _.merge({"slug": mustache.render(slug, this.settings)}, settings)
       );
     } else {
       throw new Error('Missing required API parameters for _buildURI: ' + missing)
@@ -132,8 +132,8 @@ var Client = function (settings, https) {
       // and substitute in the parameters we were given
       var missing = _.difference(route.params, _.keys(params));
       if (!missing.length) {
-        // We have a route, and we have all its parameters.  Now it's just a simple
-        // matter of rendering the slug and shooting it at Rito.
+        // We have a route, and we have all its parameters, so we can replace
+        // tags with params.
         return mustache.render(route.route, params);
       } else {
         throw new Error('Missing parameters for route ' + alias + ': ' + missing)
