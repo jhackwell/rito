@@ -2,12 +2,9 @@
  * Created by jay on 6/21/2015.
  */
 
-var fs = require('fs');
 var _ = require('lodash');
 
-src = fs.readFileSync('./src/src.txt').toString('ascii');
-
-parseAPI = function (src) {
+parse = function (src) {
   // \r\n is the Windows line separator, while \n is *nix
 // We also drop empty lines, as they'd throw off our parsing
   var lines = _.filter(src.split(/\r?\n/), function (line) {
@@ -84,7 +81,6 @@ parseAPI = function (src) {
   return o;
 };
 
-fs.writeFileSync('./generated/api.json', JSON.stringify(parseAPI(src)));
-
+exports.parse = parse;
 
 
