@@ -21,6 +21,18 @@ var Client = function (settings, https) {
   this.endpoints = [];
 
   /**
+   * Load in JSON API description at construction time.
+   */
+  this._api = function () {
+    var parsed = JSON.parse(fs.readFileSync('./api/generated/api.json').toString());
+    if (!parsed) {
+      throw new Error('Unable to parse API description from JSON')
+    } else {
+      return parsed;
+    }
+  }();
+
+  /**
    * Specify which version of a given API endpoint this client should use.
    * This will make all methods of an endpoint available to be called, and the methods
    * will be fixed at this specific version for the rest of this object's life.
@@ -137,18 +149,6 @@ var Client = function (settings, https) {
   this._get = function (route, err, res) {
     https.get(route, res).on('error', err)
   };
-
-  /**
-   * Load in JSON API description at construction time.
-   */
-  this._api = function () {
-    var parsed = JSON.parse(fs.readFileSync('./api/generated/api.json').toString());
-    if (!parsed) {
-      throw new Error('Unable to parse API description from JSON')
-    } else {
-      return parsed;
-    }
-  }();
 
   /**
    * Build an endpoint URI given an endpoint short name.
