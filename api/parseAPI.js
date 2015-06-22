@@ -59,10 +59,10 @@ parse = function (src) {
          * operation will be unique, however, so this is fragile and may break on changes to the API itself.
          *
          * Ex: "/api/lol/{{region}}/v1.3/game/by-summoner/{{summonerId}}/recent"
-         * -> "api.lol.game.by-summoner.recent","description"
+         * -> "api.lol.region.game.by-summoner.summonerId.recent"
          **/
         name = route.slice(1, route.length)
-          .replace(/\/\{\{.*?\}\}/g, '')
+          .replace(/\{\{(.*?)\}\}/g, '$1')
           .replace(/\/v(\d+)\.(\d+)/g, '')
           .replace(/\//g, '.');
 

@@ -23,8 +23,7 @@ chai.use(spies);
 // matches a particular string
 var regexSpy = function (str) {
   return chai.spy(function (res) {
-      var re = new RegExp(str);
-      assert.ok(re.exec(res.msg))
+      assert.ok(new RegExp(str).exec(res.msg))
     }
   )
 };
@@ -175,8 +174,16 @@ describe('use', function () {
   });
 
   it('should register a new endpoint if it does not conflict with another', function () {
-    this.rito.use('champion', '1.2');
-    assert(_.find(this.rito.endpoints, {endpoint: 'champion', version: '1.2'}))
+    var errSpy = chai.spy(function(err) {console.log(err)});
+    var resSpy = chai.spy();
+
+    this.rito.use('champion', '1.2', errSpy, resSpy);
+    assert(_.find(this.rito.endpoints, {endpoint: 'champion', version: '1.2'}));
+
+    console.log(this.rito.aliases);
+
+    errSpy.should.not.have.been.called();
+    resSpy.should.have.been.called();
   });
 
   it('should not error if the same endpoint is attached twice', function () {

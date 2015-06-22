@@ -51,6 +51,10 @@ var Client = function (settings, https) {
     else {
       if (this._api[endpoint] && this._api[endpoint][version]) {
         this.endpoints.push(add);
+        // We have to bind registerRoute so it gets the right 'this' context
+        // We pass through the err and res that were passed into this function, so that the caller
+        // can do with them as they please.
+        _.forEach(this._api[endpoint][version].routes, _.bind(this.registerRoute, this, _, err, res))
       } else {
         err({
           msg: mustache.render('Endpoint {{endpoint}} at version {{version}} does not exist in API', add)
@@ -148,6 +152,8 @@ var Client = function (settings, https) {
   /**
    * Build an endpoint URI given an endpoint short name.
    *
+   * Helper method.
+   *
    * @param slug
    * @param settings Must include 'region', 'base', 'key'
    * @returns {*}
@@ -173,6 +179,8 @@ var Client = function (settings, https) {
    * Build slug from previously-registered route alias and params.
    * Any slug with stuff in it that might get HTML encoded bug shouldn't, like
    * '{{something/else}}' will need to be represented as {{& something/else}}
+   *
+   * Helper method.
    *
    * @param alias String Name of a previously-registered alias
    * @param params Object Key-value pairs of parameter names and values

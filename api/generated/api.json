@@ -17,13 +17,13 @@
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.2/champion",
-          "name": "api.lol.champion",
+          "name": "api.lol.region.champion",
           "description": "Retrieve all champions. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.2/champion/{{id}}",
-          "name": "api.lol.champion",
+          "name": "api.lol.region.champion.id",
           "description": "Retrieve champion by ID. (REST)"
         }
       ]
@@ -48,7 +48,7 @@
         {
           "method": "GET",
           "route": "/observer-mode/rest/consumer/getSpectatorGameInfo/{{platformId}}/{{summonerId}}",
-          "name": "observer-mode.rest.consumer.getSpectatorGameInfo",
+          "name": "observer-mode.rest.consumer.getSpectatorGameInfo.platformId.summonerId",
           "description": "Get current game information for the given summoner ID. (REST)"
         }
       ]
@@ -97,7 +97,7 @@
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.3/game/by-summoner/{{summonerId}}/recent",
-          "name": "api.lol.game.by-summoner.recent",
+          "name": "api.lol.region.game.by-summoner.summonerId.recent",
           "description": "Get recent games by summoner ID. (REST)"
         }
       ]
@@ -121,37 +121,37 @@
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.5/league/by-summoner/{{summonerIds}}",
-          "name": "api.lol.league.by-summoner",
+          "name": "api.lol.region.league.by-summoner.summonerIds",
           "description": "Get leagues mapped by summoner ID for a given list of summoner IDs. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.5/league/by-summoner/{{summonerIds}}/entry",
-          "name": "api.lol.league.by-summoner.entry",
+          "name": "api.lol.region.league.by-summoner.summonerIds.entry",
           "description": "Get league entries mapped by summoner ID for a given list of summoner IDs. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.5/league/by-team/{{teamIds}}",
-          "name": "api.lol.league.by-team",
+          "name": "api.lol.region.league.by-team.teamIds",
           "description": "Get leagues mapped by team ID for a given list of team IDs. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.5/league/by-team/{{teamIds}}/entry",
-          "name": "api.lol.league.by-team.entry",
+          "name": "api.lol.region.league.by-team.teamIds.entry",
           "description": "Get league entries mapped by team ID for a given list of team IDs. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.5/league/challenger",
-          "name": "api.lol.league.challenger",
+          "name": "api.lol.region.league.challenger",
           "description": "Get challenger tier leagues. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.5/league/master",
-          "name": "api.lol.league.master",
+          "name": "api.lol.region.league.master",
           "description": "Get master tier leagues. (REST)"
         }
       ]
@@ -176,91 +176,91 @@
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/champion",
-          "name": "api.lol.static-data.champion",
+          "name": "api.lol.static-data.region.champion",
           "description": "Retrieves champion list. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/champion/{{id}}",
-          "name": "api.lol.static-data.champion",
+          "name": "api.lol.static-data.region.champion.id",
           "description": "Retrieves a champion by its id. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/item",
-          "name": "api.lol.static-data.item",
+          "name": "api.lol.static-data.region.item",
           "description": "Retrieves item list. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/item/{{id}}",
-          "name": "api.lol.static-data.item",
+          "name": "api.lol.static-data.region.item.id",
           "description": "Retrieves item by its unique id. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/language-strings",
-          "name": "api.lol.static-data.language-strings",
+          "name": "api.lol.static-data.region.language-strings",
           "description": "Retrieve language strings data. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/languages",
-          "name": "api.lol.static-data.languages",
+          "name": "api.lol.static-data.region.languages",
           "description": "Retrieve supported languages data. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/map",
-          "name": "api.lol.static-data.map",
+          "name": "api.lol.static-data.region.map",
           "description": "Retrieve map data. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/mastery",
-          "name": "api.lol.static-data.mastery",
+          "name": "api.lol.static-data.region.mastery",
           "description": "Retrieves mastery list. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/mastery/{{id}}",
-          "name": "api.lol.static-data.mastery",
+          "name": "api.lol.static-data.region.mastery.id",
           "description": "Retrieves mastery item by its unique id. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/realm",
-          "name": "api.lol.static-data.realm",
+          "name": "api.lol.static-data.region.realm",
           "description": "Retrieve realm data. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/rune",
-          "name": "api.lol.static-data.rune",
+          "name": "api.lol.static-data.region.rune",
           "description": "Retrieves rune list. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/rune/{{id}}",
-          "name": "api.lol.static-data.rune",
+          "name": "api.lol.static-data.region.rune.id",
           "description": "Retrieves rune by its unique id. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/summoner-spell",
-          "name": "api.lol.static-data.summoner-spell",
+          "name": "api.lol.static-data.region.summoner-spell",
           "description": "Retrieves summoner spell list. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/summoner-spell/{{id}}",
-          "name": "api.lol.static-data.summoner-spell",
+          "name": "api.lol.static-data.region.summoner-spell.id",
           "description": "Retrieves summoner spell by its unique id. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/static-data/{{region}}/v1.2/versions",
-          "name": "api.lol.static-data.versions",
+          "name": "api.lol.static-data.region.versions",
           "description": "Retrieve version data. (REST)"
         }
       ]
@@ -290,7 +290,7 @@
         {
           "method": "GET",
           "route": "/shards/{{region}}",
-          "name": "shards",
+          "name": "shards.region",
           "description": "Get shard status. Returns the data available on the status.leagueoflegends.com website for the given region. (REST)"
         }
       ]
@@ -314,7 +314,7 @@
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.2/match/{{matchId}}",
-          "name": "api.lol.match",
+          "name": "api.lol.region.match.matchId",
           "description": "Retrieve match by match ID. (REST)"
         }
       ]
@@ -338,7 +338,7 @@
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.2/matchhistory/{{summonerId}}",
-          "name": "api.lol.matchhistory",
+          "name": "api.lol.region.matchhistory.summonerId",
           "description": "Retrieve match history by summoner ID. (REST)"
         }
       ]
@@ -362,13 +362,13 @@
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.3/stats/by-summoner/{{summonerId}}/ranked",
-          "name": "api.lol.stats.by-summoner.ranked",
+          "name": "api.lol.region.stats.by-summoner.summonerId.ranked",
           "description": "Get ranked stats by summoner ID. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.3/stats/by-summoner/{{summonerId}}/summary",
-          "name": "api.lol.stats.by-summoner.summary",
+          "name": "api.lol.region.stats.by-summoner.summonerId.summary",
           "description": "Get player stats summaries by summoner ID. (REST)"
         }
       ]
@@ -392,31 +392,31 @@
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.4/summoner/by-name/{{summonerNames}}",
-          "name": "api.lol.summoner.by-name",
+          "name": "api.lol.region.summoner.by-name.summonerNames",
           "description": "Get summoner objects mapped by standardized summoner name for a given list of summoner names. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.4/summoner/{{summonerIds}}",
-          "name": "api.lol.summoner",
+          "name": "api.lol.region.summoner.summonerIds",
           "description": "Get summoner objects mapped by summoner ID for a given list of summoner IDs. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.4/summoner/{{summonerIds}}/masteries",
-          "name": "api.lol.summoner.masteries",
+          "name": "api.lol.region.summoner.summonerIds.masteries",
           "description": "Get mastery pages mapped by summoner ID for a given list of summoner IDs (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.4/summoner/{{summonerIds}}/name",
-          "name": "api.lol.summoner.name",
+          "name": "api.lol.region.summoner.summonerIds.name",
           "description": "Get summoner names mapped by summoner ID for a given list of summoner IDs. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v1.4/summoner/{{summonerIds}}/runes",
-          "name": "api.lol.summoner.runes",
+          "name": "api.lol.region.summoner.summonerIds.runes",
           "description": "Get rune pages mapped by summoner ID for a given list of summoner IDs. (REST)"
         }
       ]
@@ -440,13 +440,13 @@
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.4/team/by-summoner/{{summonerIds}}",
-          "name": "api.lol.team.by-summoner",
+          "name": "api.lol.region.team.by-summoner.summonerIds",
           "description": "Get teams mapped by summoner ID for a given list of summoner IDs. (REST)"
         },
         {
           "method": "GET",
           "route": "/api/lol/{{region}}/v2.4/team/{{teamIds}}",
-          "name": "api.lol.team",
+          "name": "api.lol.region.team.teamIds",
           "description": "Get teams mapped by team ID for a given list of team IDs. (REST)"
         }
       ]
