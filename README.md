@@ -30,8 +30,8 @@ var err = function (err) {
 ```
 
 The url base is unlikely to change (currently `api.pvp.net`), but better not to hard code it.
-`<key>` should be replaced with your own private key.  It is recommended to put it in private.settings.json
-https is any object with the same API as the Node.js `HTTPS` module (this is passed in rather than hardcoded
+`<key>` should be replaced with your own private key.  It is recommended to put it in private.settings.json.
+`https` is any object with the same API as the Node.js `HTTPS` module (this is passed in rather than hardcoded
 both for modularity and testing)
 ```js
 var client = new rito.Client({key: <key>, base: 'api.pvp.net'}, require('https'));
