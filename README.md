@@ -20,18 +20,12 @@ var rito = require('./rito.js');
 
 Then create an instance with immutable configuration.
 
-The url base is unlikely to change (currently `api.pvp.net`), but better not to hard code it.
-`<key>` should be replaced with your own private key.  It is recommended to put it in private.settings.json.
-`https` is any object with the same API as the Node.js `https` module (this is passed in rather than hardcoded
-both for modularity and testing)
 ```js
 var client = new rito.Client({key: <key>, base: 'api.pvp.net'}, require('https'));
 ```
 
 Register an endpoint at a specific version -- this ensures you'll always know which version of which
-endpoint your application depends on!
-
-You only need to register whatever endpoints you need -- this is an ideal thing to have in your
+endpoint your application depends on! You only need to register whatever endpoints you need -- this is an ideal thing to have in your
 configuration somewhere.
 
 All endpoints and their associated routes are defined in /api/generated/api.json
