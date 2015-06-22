@@ -54,7 +54,8 @@ var Client = function (settings, https) {
         // We have to bind registerRoute so it gets the right 'this' context
         // We pass through the err and res that were passed into this function, so that the caller
         // can do with them as they please.
-        _.forEach(this._api[endpoint][version].routes, _.bind(this.registerRoute, this, _, err, res))
+        var merged = this._mergeRegions(this._api);
+        _.forEach(merged[endpoint][version].routes, _.bind(this.registerRoute, this, _, err, res))
       } else {
         err({
           msg: mustache.render('Endpoint {{endpoint}} at version {{version}} does not exist in API', add)
@@ -206,6 +207,28 @@ var Client = function (settings, https) {
       throw new Error('Attempted to call unregistered alias with name ' + alias)
     }
   };
+
+  /**
+   * Add the region list from each endpoint.version into every route in the api.
+   *
+   * Helper function
+   *
+   * @param api
+   * @returns {*}
+   * @private
+   */
+  this._mergeRegions = function (api) {
+    return _.mapValues(api, function (endpoint) {
+      return _.mapValues(endpoint, function (version) {
+        var regions = version.regions;
+        version.routes = _.map(version.routes, function (route) {
+          route.regions = regions;
+          return route;
+        });
+        return version;
+      })
+    })
+  }
 };
 
 exports.Client = Client;
