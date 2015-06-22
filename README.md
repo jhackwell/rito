@@ -13,10 +13,12 @@ $ npm install --save rito
 
 ## Usage
 
-Require it.
+Scope it on in...
 ```js
 var rito = require('./rito.js');
 ```
+
+Then create an instance with immutable configuration.
 
 The url base is unlikely to change (currently `api.pvp.net`), but better not to hard code it.
 `<key>` should be replaced with your own private key.  It is recommended to put it in private.settings.json.
@@ -26,11 +28,13 @@ both for modularity and testing)
 var client = new rito.Client({key: <key>, base: 'api.pvp.net'}, require('https'));
 ```
 
-Register the "champion" endpoint at version 1.2.
+Register an endpoint at a specific version -- this ensures you'll always know which version of which
+endpoint your application depends on!
+
 You only need to register whatever endpoints you need -- this is an ideal thing to have in your
 configuration somewhere.
 
-These are all defined in /api/generated/api.json
+All endpoints and their associated routes are defined in /api/generated/api.json
 ```js
 client.use('champion', '1.2', err, res);
 ```
@@ -54,11 +58,10 @@ var err = function (err) {
 Rather than call the `rito.call()` method directly (which is flexible but cumbersome), it may be easier
 to bind a set of variables to it-- this way you can configure whatever response handling and output streams
 you want, and you only have to do it in one place!
-
-Placeholders are route name, route method (e.g. `GET`), region, and parameters.
 ```js
 var _ = require('lodash');
 
+//Placeholders are route name, route method (e.g. GET), region, and parameters.
 var call = _.bind(client.call, client, _, _, _, _, err, function (res) {
   if (res.statusCode == 200) {
     res.on('data', function (d) {
