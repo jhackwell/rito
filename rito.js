@@ -93,14 +93,16 @@ var Client = function (settings, https) {
    * todo add check for region availability here
    */
   this.call = function (alias, method, region, params, err, res) {
-    method = '_' + method;
+    method = '_' + method.toLowerCase();
     if (!this.https) {
       throw new Error('Rito client has no HTTPS module attached to it')
     }
     if (this.hasOwnProperty(method) && _.isFunction(this[method])) {
       // Key and base never change per client instance, and are only decoupled
       // for testing.  We just merge region in here and pass it along.
-      settings = _.merge({"region": region}, this.settings);
+      var settings = _.merge({"region": region}, this.settings);
+      // We also want to pass the region along to the slug generator
+      params = _.merge({"region": region}, params);
       // Now it's just a simple matter of rendering the slug and shooting it at Rito.
       this[method](this._buildURI((this._buildSlug(alias, params)), settings), err, res);
     } else {
