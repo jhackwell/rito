@@ -1,4 +1,5 @@
-# rito [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# rito [![NPM version][npm-image]][npm-url] 
+[![Build Status](https://api.travis-ci.org/jhackwell/rito.svg?branch=master)](https://travis-ci.org/jhackwell/rito)
 > rito pls
 
 
