@@ -1,6 +1,6 @@
-# rito [![NPM version][npm-image]][npm-url] 
-[![Build Status](https:api.travis-ci.org/jhackwell/rito.svg?branch=master)](https:travis-ci.org/jhackwell/rito)
-> Flexible and durable Riot Games API client in Node.js
+# rito [![npm-version][npm-image]][npm-url] 
+[![Build Status](https://api.travis-ci.org/jhackwell/rito.svg?branch=master)](https://travis-ci.org/jhackwell/rito)
+> Flexible, durable, asynchronous Riot Games API client in Node.js
 
 
 
@@ -31,7 +31,7 @@ var err = function (err) {
 
 The url base is unlikely to change (currently `api.pvp.net`), but better not to hard code it.
 `<key>` should be replaced with your own private key.  It is recommended to put it in private.settings.json
-https is any object with the same API as the Node.js `https` module (this is passed in rather than hardcoded
+https is any object with the same API as the Node.js `HTTPS` module (this is passed in rather than hardcoded
 both for modularity and testing)
 ```js
 var client = new rito.Client({key: <key>, base: 'api.pvp.net'}, require('https'));
@@ -95,10 +95,10 @@ getChampionById('na', 7);
 
 MIT
 
-[NPM-version]: 0.1.0
-[npm-image]: https:badge.fury.io/js/rito.svg
-[npm-url]: https:npmjs.org/package/rito
-[travis-image]: https:travis-ci.orgrito.svg?branch=master
-[travis-url]: https:travis-ci.orgrito
-[daviddm-image]: https:david-dm.orgrito.svg?theme=shields.io
-[daviddm-url]: https:david-dm.orgrito
+[npm-version]: 0.1.0
+[npm-image]: https://badge.fury.io/js/rito.svg
+[npm-url]: https://npmjs.org/package/rito
+[travis-image]: https://travis-ci.org//rito.svg?branch=master
+[travis-url]: https://travis-ci.org//rito
+[daviddm-image]: https://david-dm.org//rito.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org//rito
