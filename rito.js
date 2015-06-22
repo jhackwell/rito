@@ -5,6 +5,7 @@
 
 var mustache = require('mustache');
 var _ = require('lodash');
+var fs = require('fs');
 
 /**
  * todo Description
@@ -17,6 +18,47 @@ var Client = function (settings, https) {
   this.settings = settings;
   this.aliases = settings.aliases ? settings.aliases : [];
   this.https = https;
+  this.endpoints = [];
+
+  /**
+   * Specify which version of a given API endpoint this client should use.
+   * This will make all methods of an endpoint available to be called, and the methods
+   * will be fixed at this specific version for the rest of this object's life.
+   *
+   * @param endpoint
+   * @param version
+   * @param err
+   * @param res
+   */
+  this.use = function (endpoint, version, err, res) {
+    var add = {endpoint: endpoint, version: version};
+    var match = _.find(this.endpoints, {endpoint: endpoint});
+
+    if (match && !(match.endpoint == add.endpoint && match.version == add.version)) {
+      err({
+        msg: 'Could not attach endpoint ' + endpoint + ' at version ' + version + ': '
+        + match.version + ' already attached'
+      });
+    } else if (match) {
+      res({
+        msg: mustache.render(
+          'Attempted to attach duplicate endpoint {{endpoint}} at version {{version}}; ignoring',
+          match
+        )
+      })
+    }
+    // There was no match, so we can insert the endpoint.
+    else {
+      if (this._api[endpoint] && this._api[endpoint][version]) {
+        this.endpoints.push(add);
+      } else {
+        err({
+          msg: mustache.render('Endpoint {{endpoint}} at version {{version}} does not exist in API', add)
+        });
+      }
+    }
+  }
+  ;
 
   /**
    * Build and make a request using the given method to the HTTPS module attached
@@ -30,6 +72,8 @@ var Client = function (settings, https) {
    * @param params Route-specific parameters, e.g. 'id'
    * @param err Error callback
    * @param res Success callback
+   *
+   * todo add check for region availability here
    */
   this.call = function (alias, method, region, params, err, res) {
     method = '_' + method;
@@ -48,13 +92,13 @@ var Client = function (settings, https) {
   };
 
   /**
-   * Call a previously-registered alias for a fully-qualified, versioned route endpoint.
+   * Register a route under an alias that will then become available for calling.
    *
    * @param alias
    * @param err Error callback
    * @param res Result callback
    */
-  this.registerAlias = function (alias, err, res) {
+  this.registerRoute = function (alias, err, res) {
     var existing = _.find(this.aliases, function (oldAlias) {
       return oldAlias.name == alias.name
     });
@@ -88,6 +132,18 @@ var Client = function (settings, https) {
   this._get = function (route, err, res) {
     https.get(route, res).on('error', err)
   };
+
+  /**
+   * Load in JSON API description at construction time.
+   */
+  this._api = function () {
+    var parsed = JSON.parse(fs.readFileSync('./api/generated/api.json').toString());
+    if (!parsed) {
+      throw new Error('Unable to parse API description from JSON')
+    } else {
+      return parsed;
+    }
+  }();
 
   /**
    * Build an endpoint URI given an endpoint short name.

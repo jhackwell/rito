@@ -29,7 +29,7 @@ var regexSpy = function (str) {
   )
 };
 
-describe('registerAlias', function () {
+describe('registerRoute', function () {
   beforeEach(function () {
     this.rito = new rito.Client({}, {});
   });
@@ -38,7 +38,7 @@ describe('registerAlias', function () {
     var errSpy = chai.spy();
     var addedSpy = regexSpy('Added alias');
 
-    this.rito.registerAlias({name: 'foo'}, errSpy, addedSpy);
+    this.rito.registerRoute({name: 'foo'}, errSpy, addedSpy);
 
     addedSpy.should.have.been.called.once();
     errSpy.should.not.have.been.called();
@@ -51,10 +51,10 @@ describe('registerAlias', function () {
 
     // We should get success the first time...
     var alias = {name: 'foo', route: 'bar'};
-    this.rito.registerAlias(alias, errSpy, resSpy);
+    this.rito.registerRoute(alias, errSpy, resSpy);
 
     // and success with warning message about duplication here
-    this.rito.registerAlias(alias, errSpy, dupSpy);
+    this.rito.registerRoute(alias, errSpy, dupSpy);
 
     resSpy.should.have.been.called.once();
     dupSpy.should.have.been.called.once();
@@ -67,11 +67,11 @@ describe('registerAlias', function () {
 
     // We should get success the first time...
     var alias = {name: 'foo', route: 'bar'};
-    this.rito.registerAlias(alias, errSpy, resSpy);
+    this.rito.registerRoute(alias, errSpy, resSpy);
 
     // And an error the second time.
     alias.route = 'baz';
-    this.rito.registerAlias(alias, errSpy, resSpy);
+    this.rito.registerRoute(alias, errSpy, resSpy);
 
     errSpy.should.have.been.called.once();
     resSpy.should.have.been.called.once();
@@ -89,13 +89,13 @@ describe('_buildSlug', function () {
   });
 
   it('should error if required parameters are missing', function () {
-    this.rito.registerAlias({name: 'foo', route: '{{bar}}', params: ['bar', 'baz']}, _.noop, _.noop);
+    this.rito.registerRoute({name: 'foo', route: '{{bar}}', params: ['bar', 'baz']}, _.noop, _.noop);
     //noinspection JSAccessibilityCheck
     expect(this.rito._buildSlug.bind(this.rito, 'foo', {'bar': 'bat'})).to.throw(/Missing parameters/);
   });
 
   it('should replace tags with params', function () {
-    this.rito.registerAlias({name: 'foo', route: '{{bar}}/{{baz}}', params: ['bar', 'baz']}, _.noop, _.noop);
+    this.rito.registerRoute({name: 'foo', route: '{{bar}}/{{baz}}', params: ['bar', 'baz']}, _.noop, _.noop);
     //noinspection JSAccessibilityCheck
     var slug = this.rito._buildSlug('foo', {'bar': 'bat', 'baz': 'qux'});
     assert.equal('bat/qux', slug)
@@ -163,8 +163,41 @@ describe('call', function () {
 
   it('should call the request method if valid', function () {
     // Just in case this is defined, for some reason
-    this.rito.registerAlias({name: 'foo', route: '{{bar}}/{{baz}}', params: ['bar', 'baz']}, _.noop, _.noop);
+    this.rito.registerRoute({name: 'foo', route: '{{bar}}/{{baz}}', params: ['bar', 'baz']}, _.noop, _.noop);
     this.rito.call('foo', 'get', 'na', {bar: 'bat', baz: 'qux'});
     this.rito.https.get.should.have.been.called.once();
+  });
+});
+
+describe('use', function () {
+  beforeEach(function () {
+    this.rito = new rito.Client({}, {});
+  });
+
+  it('should register a new endpoint if it does not conflict with another', function () {
+    this.rito.use('champion', '1.2');
+    assert(_.find(this.rito.endpoints, {endpoint: 'champion', version: '1.2'}))
+  });
+
+  it('should not error if the same endpoint is attached twice', function () {
+    var errSpy = chai.spy();
+    var resSpy = regexSpy('Attempted to attach duplicate');
+
+    this.rito.use('champion', '1.2', _.noop, _.noop);
+    this.rito.use('champion', '1.2', errSpy, resSpy);
+
+    errSpy.should.not.have.been.called();
+    resSpy.should.have.been.called.once();
+  });
+
+  it('should error if a conflicting endpoint is attached', function () {
+    var errSpy = regexSpy('already attached');
+    var resSpy = chai.spy();
+
+    this.rito.use('champion', '1.2', _.noop, _.noop);
+    this.rito.use('champion', '1.3', errSpy, resSpy);
+
+    errSpy.should.have.been.called.once();
+    resSpy.should.not.have.been.called();
   });
 });
