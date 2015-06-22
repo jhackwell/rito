@@ -174,13 +174,16 @@ describe('use', function () {
   });
 
   it('should register a new endpoint if it does not conflict with another', function () {
-    var errSpy = chai.spy(function(err) {console.log(err)});
+    var errSpy = chai.spy(function (err) {
+      console.log(err)
+    });
     var resSpy = chai.spy();
 
     this.rito.use('champion', '1.2', errSpy, resSpy);
     assert(_.find(this.rito.endpoints, {endpoint: 'champion', version: '1.2'}));
 
-    console.log(this.rito.aliases);
+    // However many routes there were, they all should have been inserted
+    assert.equal(this.rito.aliases.length, this.rito._api.champion[1.2].routes.length);
 
     errSpy.should.not.have.been.called();
     resSpy.should.have.been.called();
