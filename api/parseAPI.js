@@ -52,6 +52,11 @@ parse = function (src) {
         // Assumes route line follows the form '<method> <route>'
         // We also switch single curly braces out for doubles for mustache to use in slug generation
         var route = (line.slice(line.indexOf(' ') + 1, line.length)).replace(/\{/g, '{{').replace(/\}/g, '}}');
+        var paramMatch = /\{\{(.*?)\}\}/g;
+        var params = _.map(route.match(paramMatch), function (match) {
+          return match.replace(paramMatch, '$1')
+        });
+
         /**
          * Here's where things get a bit dicey.  We're going to generate what we're hoping will be a
          * unique name for this route, simply by removing all parameters and the version number.  This will
@@ -61,12 +66,12 @@ parse = function (src) {
          * Ex: "/api/lol/{{region}}/v1.3/game/by-summoner/{{summonerId}}/recent"
          * -> "api.lol.region.game.by-summoner.summonerId.recent"
          **/
-        name = route.slice(1, route.length)
-          .replace(/\{\{(.*?)\}\}/g, '$1')
+        var name = route.slice(1, route.length)
+          .replace(paramMatch, '$1')
           .replace(/\/v(\d+)\.(\d+)/g, '')
           .replace(/\//g, '.');
 
-        routes.push({method: method, route: route, name: name})
+        routes.push({method: method, route: route, name: name, params: params})
       } else {
         // We assume any line starting with \t\t is a description of the route on the previous line
         routes[routes.length - 1]['description'] = line.slice(2, line.length);
