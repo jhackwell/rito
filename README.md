@@ -13,20 +13,9 @@ $ npm install --save rito
 
 ## Usage
 
+Require it.
 ```js
-var _ = require('lodash');
 var rito = require('./rito.js');
-```
-These callbacks can do anything with the output streams you desire!  Obvious uses include
-propagating to a database, logging, and performing stats logging.
-
-```js
-var res = function (res) {
-  console.log(res)
-};
-var err = function (err) {
-  console.log(err)
-};
 ```
 
 The url base is unlikely to change (currently `api.pvp.net`), but better not to hard code it.
@@ -51,12 +40,25 @@ client.use('champion', '1.2', err, res);
 { msg: 'Added alias for name api.lol.region.champion.id' }
 ```
 
+Create callbacks to do anything with the output streams you desire!  Obvious uses include
+propagating to a database, logging, and sending messages to [statsd](https://github.com/etsy/statsd).
+```js
+var res = function (res) {
+  console.log(res)
+};
+var err = function (err) {
+  console.log(err)
+};
+```
+
 Rather than call the `rito.call()` method directly (which is flexible but cumbersome), it may be easier
 to bind a set of variables to it-- this way you can configure whatever response handling and output streams
 you want, and you only have to do it in one place!
 
 Placeholders are route name, route method (e.g. `GET`), region, and parameters.
 ```js
+var _ = require('lodash');
+
 var call = _.bind(client.call, client, _, _, _, _, err, function (res) {
   if (res.statusCode == 200) {
     res.on('data', function (d) {
