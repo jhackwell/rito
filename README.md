@@ -29,9 +29,9 @@ var err = function (err) {
 };
 ```
 
-base is in public.settings.json -- unlikely to change, but better not to hard code it.
-<key> should be replaced with your own private key.  It is recommended to put it in private.settings.json
-https is any object with the same API as the Node.js HTTPS module (this is passed in rather than hardcoded
+The url base is unlikely to change (currently `api.pvp.net`), but better not to hard code it.
+`<key>` should be replaced with your own private key.  It is recommended to put it in private.settings.json
+https is any object with the same API as the Node.js `https` module (this is passed in rather than hardcoded
 both for modularity and testing)
 ```js
 var client = new rito.Client({key: <key>, base: 'api.pvp.net'}, require('https'));
@@ -51,11 +51,11 @@ client.use('champion', '1.2', err, res);
 { msg: 'Added alias for name api.lol.region.champion.id' }
 ```
 
-Rather than call the rito.call() method directly (which is flexible but cumbersome), it may be easier
+Rather than call the `rito.call()` method directly (which is flexible but cumbersome), it may be easier
 to bind a set of variables to it-- this way you can configure whatever response handling and output streams
 you want, and you only have to do it in one place!
 
-Placeholders are route name, route method (e.g. GET), region, and parameters.
+Placeholders are route name, route method (e.g. `GET`), region, and parameters.
 ```js
 var call = _.bind(client.call, client, _, _, _, _, err, function (res) {
   if (res.statusCode == 200) {
@@ -80,14 +80,22 @@ And then the fun part...
 getChampionById('na', 7);
 ```
 
-```console
-{"id":7,"active":true,"botEnabled":false,"freeToPlay":false,"botMmEnabled":false,"rankedPlayEnabled":true}
+```json
+{
+  "id": 7,
+  "active": true,
+  "botEnabled": false,
+  "freeToPlay": false,
+  "botMmEnabled": false,
+  "rankedPlayEnabled": true
+}
 ```
 
 ## License
 
 MIT
 
+[NPM-version]: 0.1.0
 [npm-image]: https:badge.fury.io/js/rito.svg
 [npm-url]: https:npmjs.org/package/rito
 [travis-image]: https:travis-ci.orgrito.svg?branch=master
