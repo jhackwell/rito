@@ -90,6 +90,8 @@ getChampionById('na', 7);
 }
 ```
 
+Aww [yiss](http://leagueoflegends.wikia.com/wiki/LeBlanc). GG, ff20, Rito pls fix.
+
 ## License
 
 MIT
