@@ -14,6 +14,7 @@
     "api",
     "config"
   ],
+  "main": "rito.js",
   "keywords": [],
   "devDependencies": {
     "gulp": "^3.6.0",
