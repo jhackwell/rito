@@ -17,6 +17,7 @@
   "main": "rito.js",
   "keywords": [],
   "devDependencies": {
+    "coveralls": "^2.11.4",
     "gulp": "^3.6.0",
     "gulp-eslint": "^0.8.0",
     "gulp-istanbul": "^0.8.1",
@@ -24,7 +25,8 @@
     "gulp-jshint": "^1.5.3",
     "gulp-mocha": "^2.0.0",
     "gulp-plumber": "^1.0.0",
-    "jshint-stylish": "^1.0.0"
+    "jshint-stylish": "^1.0.0",
+    "mocha-lcov-reporter": "^1.0.0"
   },
   "scripts": {
     "test": "gulp"
