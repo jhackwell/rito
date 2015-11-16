@@ -148,10 +148,10 @@ describe('call', function () {
     );
   });
 
-  it('should error if no https is attached', function () {
-    delete(this.rito.https);
-    expect(this.rito.call.bind(this.rito)).to.throw(/no HTTPS module/);
-  });
+  //it('should error if no https is attached', function () {
+  //  delete(this.rito.https);
+  //  expect(this.rito.call.bind(this.rito)).to.throw(/no HTTPS module/);
+  //});
 
   it('should error if request method does not exist', function () {
     // Just in case this is defined, for some reason
