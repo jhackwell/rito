@@ -1,5 +1,5 @@
 # rito [![npm-version][npm-image]][npm-url] 
-[![Build Status](https://api.travis-ci.org/jhackwell/rito.svg?branch=master)](https://travis-ci.org/jhackwell/rito)
+[![Build Status](https://api.travis-ci.org/jhackwell/rito.svg?branch=master)](https://travis-ci.org/jhackwell/rito) [![Coverage Status](https://coveralls.io/repos/jhackwell/rito/badge.svg?branch=master&service=github)](https://coveralls.io/github/jhackwell/rito?branch=master) [![bitHound Score](https://www.bithound.io/github/jhackwell/rito/badges/score.svg)](https://www.bithound.io/github/jhackwell/rito)
 > Flexible, durable, asynchronous Riot Games API client in Node.js
 
 
