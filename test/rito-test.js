@@ -21,12 +21,12 @@ chai.use(spies);
 
 // Convenience method for generating spies that assert the res/err message
 // matches a particular string
-var regexSpy = function (str) {
-  return chai.spy(function (res) {
-      assert.ok(new RegExp(str).exec(res.msg))
-    }
-  )
-};
+//var regexSpy = function (str) {
+//  return chai.spy(function (res) {
+//      assert.ok(new RegExp(str).exec(res.msg))
+//    }
+//  )
+//};
 
 describe('registerRoute', function () {
   before(function () {
