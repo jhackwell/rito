@@ -2,10 +2,33 @@
  * Created by jay on 6/20/2015.
  */
 'use strict';
-var assert = require('chai').assert;
-var rito = require('../rito.js');
 
-describe('registerAlias', function () {
+// Hey, that's us!
+var rito = require('../rito.js');
+var _ = require('lodash');
+
+// A bunch of Chai stuff.
+// Webstorm detects 'should' and 'expect' as unused, but they're actually necessary
+// for demeter chained spy assertions.
+//noinspection JSUnusedGlobalSymbols
+var chai = require('chai'),
+  assert = chai.assert,
+  should = chai.should(),
+  expect = chai.expect,
+  spies = require('chai-spies');
+
+chai.use(spies);
+
+// Convenience method for generating spies that assert the res/err message
+// matches a particular string
+var regexSpy = function (str) {
+  return chai.spy(function (res) {
+      assert.ok(new RegExp(str).exec(res.msg))
+    }
+  )
+};
+
+describe('registerRoute', function () {
   before(function () {
     this.noErr = function (err) {
       // This way we get the error message in the Mocha logs if the
@@ -17,48 +40,16 @@ describe('registerAlias', function () {
   });
 
   beforeEach(function () {
-    this.rito = new rito.Client({
-      api: {key: 'key', base: 'base', region: 'region'}
-    });
+    this.rito = new rito.Client({}, {});
   });
 
   it('should add a new route alias', function () {
-    this.rito.registerAlias(
-      {name: 'foo'},
-      this.noErr,
-      function (res) {
-        assert.ok(/Added alias/.exec(res.msg))
-      }
-    );
-  });
+    var errSpy = chai.spy();
+    var addedSpy = regexSpy('Added alias');
 
-  it('should ignore identical collisions', function () {
-    var alias = {name: 'foo', route: 'bar'};
-    this.rito.registerAlias(alias, this.noErr, function () {
-    });
-    this.rito.registerAlias(
-      alias,
-      this.noErr,
-      function (res) {
-        assert.ok(/Duplicate alias/.exec(res.msg))
-      }
-    );
-  })
-  ;
-  it('should error if a conflicting alias is attempted to be registered', function () {
-    var alias = {name: 'foo', route: 'bar'};
-    this.rito.registerAlias(alias, this.noErr, function () {
-    });
-    alias.route = 'baz';
-    this.rito.registerAlias(
-      alias,
-      function (err) {
-        assert.ok(/Attempted to register/.exec(err.msg))
-      },
-      function (res) {
-        // Res is undefined behavior for err, so we'll ignore.
-      }
-    );
-  });
+    this.rito.registerRoute({name: 'foo'}, errSpy, addedSpy);
 
+    addedSpy.should.have.been.called.once();
+    errSpy.should.not.have.been.called();
+  });
 });
