@@ -11,22 +11,22 @@ var _ = require('lodash');
 // Webstorm detects 'should' and 'expect' as unused, but they're actually necessary
 // for demeter chained spy assertions.
 //noinspection JSUnusedGlobalSymbols
-//var chai = require('chai'),
-//  assert = chai.assert,
-//  should = chai.should(),
-//  expect = chai.expect,
-//  spies = require('chai-spies');
+var chai = require('chai'),
+  assert = chai.assert,
+  should = chai.should(),
+  expect = chai.expect,
+  spies = require('chai-spies');
 
-//chai.use(spies);
+chai.use(spies);
 
 // Convenience method for generating spies that assert the res/err message
 // matches a particular string
-//var regexSpy = function (str) {
-//  return chai.spy(function (res) {
-//      assert.ok(new RegExp(str).exec(res.msg))
-//    }
-//  )
-//};
+var regexSpy = function (str) {
+  return chai.spy(function (res) {
+      assert.ok(new RegExp(str).exec(res.msg))
+    }
+  )
+};
 
 describe('registerRoute', function () {
   before(function () {
@@ -44,5 +44,12 @@ describe('registerRoute', function () {
   });
 
   it('should add a new route alias', function () {
+    var errSpy = chai.spy();
+    var addedSpy = regexSpy('Added alias');
+
+    this.rito.registerRoute({name: 'foo'}, errSpy, addedSpy);
+
+    addedSpy.should.have.been.called.once();
+    errSpy.should.not.have.been.called();
   });
 });
