@@ -11,13 +11,13 @@ var _ = require('lodash');
 // Webstorm detects 'should' and 'expect' as unused, but they're actually necessary
 // for demeter chained spy assertions.
 //noinspection JSUnusedGlobalSymbols
-var chai = require('chai'),
-  assert = chai.assert,
-  should = chai.should(),
-  expect = chai.expect,
-  spies = require('chai-spies');
+//var chai = require('chai'),
+//  assert = chai.assert,
+//  should = chai.should(),
+//  expect = chai.expect,
+//  spies = require('chai-spies');
 
-chai.use(spies);
+//chai.use(spies);
 
 // Convenience method for generating spies that assert the res/err message
 // matches a particular string
