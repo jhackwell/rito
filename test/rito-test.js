@@ -44,12 +44,5 @@ describe('registerRoute', function () {
   });
 
   it('should add a new route alias', function () {
-    var errSpy = chai.spy();
-    var addedSpy = regexSpy('Added alias');
-
-    this.rito.registerRoute({name: 'foo'}, errSpy, addedSpy);
-
-    addedSpy.should.have.been.called.once();
-    errSpy.should.not.have.been.called();
   });
 });
