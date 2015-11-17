@@ -22,7 +22,7 @@ gulp.task('test', ['pre-test'], function (cb) {
   var mochaErr;
 
   gulp.src('test/**/*.js')
-    .pipe(plumber())
+    //.pipe(plumber())
     .pipe(mocha({reporter: 'spec'}))
     .on('error', function (err) {
       mochaErr = err;
