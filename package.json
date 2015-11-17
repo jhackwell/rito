@@ -17,6 +17,8 @@
   "main": "rito.js",
   "keywords": [],
   "devDependencies": {
+    "chai": "^3.4.1",
+    "chai-spies": "^0.7.1",
     "coveralls": "^2.11.4",
     "gulp": "^3.6.0",
     "gulp-eslint": "^0.8.0",
@@ -26,6 +28,8 @@
     "gulp-mocha": "^2.0.0",
     "gulp-plumber": "^1.0.0",
     "jshint-stylish": "^1.0.0",
+    "lodash": "^3.10.1",
+    "mocha": "^2.3.4",
     "mocha-lcov-reporter": "^1.0.0"
   },
   "scripts": {
