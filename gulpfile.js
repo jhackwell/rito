@@ -13,7 +13,7 @@ var handleErr = function (err) {
 };
 
 gulp.task('pre-test', function () {
-  return gulp.src('lib/**/*.js')
+  return gulp.src(['api/parseAPI.js', 'rito.js'])
     .pipe(istanbul({includeUntested: true}))
     .pipe(istanbul.hookRequire());
 });
