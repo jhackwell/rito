@@ -24,7 +24,7 @@ var Client = function (settings, https) {
    * Load in JSON API description at construction time.
    */
   this._api = function () {
-    var parsed = JSON.parse(fs.readFileSync('./api/generated/api.json').toString());
+    var parsed = require('./api/generated/api.json');
     if (!parsed) {
       throw new Error('Unable to parse API description from JSON')
     } else {
